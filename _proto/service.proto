@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package service;
+
+option go_package = "./";
+
+message EmptyResponse {}
+
+message GetAllRequest {}
+
+service FileServerCelebritySvc {
+	rpc UploadCelebrityPosters(stream UploadCelebrityPostersRequest) returns (UploadPosterResponse) {}
+	rpc DeleteCelebrityPoster(DeleteCelebrityPosterRequest) returns (EmptyResponse) {}
+}
+
+service FileServerSeriesSvc {
+    rpc UploadSeriesPosters(stream UploadSeriesPostersRequest) returns (UploadPosterResponse) {}
+    rpc DeleteSeriesPoster(DeleteSeriesPosterRequest) returns (EmptyResponse) {}
+}
+
+service FileServerArticleSvc {
+    rpc UploadArticlePosters(stream UploadArticlePostersRequest) returns (UploadPosterResponse) {}
+    rpc DeleteArticlePoster(DeleteArticlePosterRequest) returns (EmptyResponse) {}
+}
+
+service FileServerMovieSvc {
+    rpc UploadMoviePosters(stream UploadMoviePostersRequest) returns (UploadPosterResponse) {}
+    rpc DeleteMoviePoster(DeleteMoviePosterRequest) returns (EmptyResponse) {}
+}
+
+service FileServerSeasonSvc {
+	rpc UploadSeasonPosters(stream UploadSeasonPostersRequest) returns (UploadPosterResponse) {}
+	rpc DeleteSeasonPoster(DeleteSeasonPosterRequest) returns (EmptyResponse) {}
+}
+
+service FileServerEpisodeSvc {
+	rpc UploadEpisodePosters(stream UploadEpisodePostersRequest) returns (UploadPosterResponse) {}
+	rpc DeleteEpisodePoster(DeleteEpisodePosterRequest) returns (EmptyResponse) {}
+}
+
+
+
+//-----UPLOAD--------
+message UploadArticlePostersRequest {
+	string articleId = 1;
+	bytes chunkData = 2;
+	string imageExtension = 3;
+}
+
+message UploadSeriesPostersRequest {
+	string seriesId = 1;
+	bytes chunkData = 2;
+	string imageExtension = 3;
+}
+
+message UploadMoviePostersRequest {
+	string movieId = 1;
+	bytes chunkData = 2;
+	string imageExtension = 3;
+}
+
+message UploadSeasonPostersRequest {
+	string seriesId = 1;
+	string seasonId = 2;
+	bytes chunkData = 3;
+	string imageExtension = 4;
+}
+
+message UploadEpisodePostersRequest {
+	string seriesId = 1;
+	string seasonId = 2;
+	string episodeId = 3;
+	bytes chunkData = 4;
+	string imageExtension = 5;
+}
+
+message UploadCelebrityPostersRequest {
+	string celebrityId = 1;
+	bytes chunkData = 2;
+	string imageExtension = 3;
+}
+
+message UploadPosterResponse {
+    string posterPath = 1;
+}
+
+message UploadPostersResponse {
+	repeated string postersPath = 1;
+}
+
+//------DELETE--------
+message DeleteSeriesPosterRequest {
+	string seriesId = 1;
+	string image = 2;
+}
+
+message DeleteMoviePosterRequest {
+	string movieId = 1;
+	string image = 2;
+}
+
+message DeleteSeasonPosterRequest {
+	string seriesId = 1;
+	string seasonId = 2;
+	string image = 3;
+}
+
+message DeleteEpisodePosterRequest {
+	string seriesId = 1;
+	string seasonId = 2;
+	string episodeId = 3;
+	string image = 4;
+}
+
+message DeleteCelebrityPosterRequest {
+	string celebrityId = 1;
+	string image = 2;
+}
+
+message DeleteArticlePosterRequest {
+	string articleId = 1;
+	string image = 2;
+}
